@@ -9,8 +9,20 @@ const app = express();
 // Trust Railway/Vercel proxy
 app.set('trust proxy', 1);
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://free-repository.vercel.app',
+  process.env.CLIENT_URL?.trim(),
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin.trim())) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 app.use(express.json());
