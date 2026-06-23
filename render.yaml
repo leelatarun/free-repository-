@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: lucky-reading-room-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node src/index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: UPI_ID
+        value: 9014463623@okbizaxis
+      - key: UPI_NAME
+        value: LUCKY READING ROOM
+      - key: UPI_PHONE
+        value: "9014463623"
